@@ -1,9 +1,15 @@
+import Container from "./components/container";
+import HomeBanner from "./components/HomeBanner";
 
 
 export default function Home() {
   return (
     <div>
-      <h1>Welcome to the E-Commerce Store</h1>
+     <Container>
+        <div>
+          <HomeBanner/>
+        </div>
+     </Container>
   
     </div>
   );
