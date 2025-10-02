@@ -61,6 +61,3 @@ This is a modern e-commerce web application built with [Next.js](https://nextjs.
 - Add products and update product data in `utils/products.tsx`.
 - Customize styles in `app/globals.css` and `tailwind.config.js`.
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
