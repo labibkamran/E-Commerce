@@ -13,6 +13,7 @@ const NavBar = () => {
             z-30
             shadow-sm
         ">
+
             <div className="py-4 border-b-[1px]">
                 <Container>
                     <div className="
@@ -36,5 +37,4 @@ const NavBar = () => {
         </div>
     );
 }
-
 export default NavBar;
