@@ -10,12 +10,13 @@ const Product = ({ params }: { params: IParams }) => {
     console.log("params", params);
 
     return (
+        
         <div className="p-8">
             <Container>
                 <ProductDetails product={product}/> {/* Use the ProductDetails component here */}
             </Container>
         </div>
+
     );
 };
-
 export default Product;
