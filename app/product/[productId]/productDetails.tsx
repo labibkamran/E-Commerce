@@ -69,6 +69,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         }));
     }, []);
 
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>images</div>
@@ -84,6 +85,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <div>
                     <span className="font-semibold">CATEGORY:</span> {product.category}
                 </div>
+                
                 <div>
                     <span className="font-semibold">BRAND:</span> {product.brand}
                 </div>

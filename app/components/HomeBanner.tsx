@@ -10,10 +10,10 @@ const HomeBanner = () => {
                         Season Sale
                     </h1>
                     <p className="text-lg md:text-xl text-white mb-2">
-                        Enjoy discounts on sepcial items
+                        Enjoy discounts on special items
                     </p>
                     <p className="text-2xl md:text-5xl text-yellow-400 font-bold">
-                        GET 30% OFF
+                        GET 80% OFF
                     </p>
                 </div>
                 <div className="w-1/3 relative aspect-video">
