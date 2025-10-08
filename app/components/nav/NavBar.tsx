@@ -5,6 +5,7 @@ import { Redressed as RedressedFont } from 'next/font/google';
 const redressed = RedressedFont({ subsets: ['latin'], weight: ['400'] }); 
 const NavBar = () => {
     return (
+       
         <div className="
             sticky
             top-0
@@ -13,7 +14,6 @@ const NavBar = () => {
             z-30
             shadow-sm
         ">
-
             <div className="py-4 border-b-[1px]">
                 <Container>
                     <div className="

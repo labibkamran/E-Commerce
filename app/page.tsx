@@ -4,7 +4,9 @@ import HomeBanner from "./components/HomeBanner";
 import { truncateText } from "@/utils/truncateText";
 import ProductCard from "./components/products/ProductCard";
 
+
 export default function Home() {
+
   return (
     <div>
       <Container>
@@ -20,5 +22,6 @@ export default function Home() {
         </div>
       </Container>
     </div>
+    
   );
 }
