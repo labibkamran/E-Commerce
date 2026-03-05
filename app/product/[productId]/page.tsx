@@ -12,7 +12,7 @@ const Product = ({ params }: { params: IParams }) => {
     return (
         <div className="p-8">
             <Container>
-                <ProductDetails product={product}/> {/* Use the ProductDetails component here */}
+                <ProductDetails product={product}/> {/* Use the ProductDetsils component here */}
             </Container>
         </div>
     );
