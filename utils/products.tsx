@@ -1,6 +1,9 @@
-//I am changing the image links from firebase to amazon, firebase has issues with these direct links. Please remember to add the amazon link(that will show up at the error) instead of firebase at the cofig for it to work out.
+import { Product } from "@/types";
 
-export const products = [
+// I am changing the image links from firebase to amazon, firebase has issues with these direct links.
+// Please remember to add the amazon link (that will show up at the error) instead of firebase at the config for it to work out.
+
+export const products: Product[] = [
   {
     id: "64a654593e91b8e73a351e9b",
     name: "iphone 14",
@@ -183,3 +186,6 @@ export const products = [
     reviews: [],
   },
 ];
+
+export const getProductById = (productId: string) =>
+  products.find((product) => product.id === productId);
