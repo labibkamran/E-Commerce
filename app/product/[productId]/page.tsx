@@ -1,18 +1,24 @@
 import Container from "@/app/components/container";
-import { product } from "@/utils/product";
+import { getProductById } from "@/utils/products";
 import ProductDetails from "./productDetails"; // Update the path to where ProductDetails is located.
+import { notFound } from "next/navigation";
 
 interface IParams {
-    productId?: string;
+    productId: string;
 }
 
-const Product = ({ params }: { params: IParams }) => {
-    console.log("params", params);
+const Product = async ({ params }: { params: Promise<IParams> }) => {
+    const { productId } = await params;
+    const resolvedProduct = getProductById(productId);
+
+    if (!resolvedProduct) {
+        notFound();
+    }
 
     return (
         <div className="p-8">
             <Container>
-                <ProductDetails product={product}/> {/* Use the ProductDetails component here */}
+                <ProductDetails product={resolvedProduct}/> {/* Use the ProductDetails component here */}
             </Container>
         </div>
     );
