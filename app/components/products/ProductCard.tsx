@@ -1,21 +1,23 @@
 "use client";
 import { formatPrice } from "@/utils/formatePrice";
 import { truncateText } from "@/utils/truncateText";
+import { Product } from "@/types";
 import { Rating } from "@mui/material";
-import { truncate } from "fs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
-    data: any;
+    data: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
     const router = useRouter();
-    const productRating = data.reviews.reduce((acc: number, item: any) => {
-        return acc + item.rating;
-    }, 0) / data.reviews.length;
+    const productRating = data.reviews.length
+        ? data.reviews.reduce((acc, item) => {
+              return acc + item.rating;
+          }, 0) / data.reviews.length
+        : 0;
 
     return (
         <div
@@ -52,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                     {truncateText(data?.name)}
                 </div>
                 <div>
-                    <Rating value={productRating} readOnly/>
+                    <Rating value={productRating} precision={0.5} readOnly/>
                 </div>
                 <div>
                     {data.reviews.length} Reviews
