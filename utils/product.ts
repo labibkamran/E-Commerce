@@ -1,4 +1,6 @@
-export const product = {
+import { Product } from "@/types";
+
+export const product: Product = {
     id: "648437b38c44d52b9542e340",
     name: "Apple iPhone 13, 64GB",
     description:
