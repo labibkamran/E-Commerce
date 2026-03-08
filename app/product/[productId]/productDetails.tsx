@@ -2,36 +2,20 @@
 
 import SetColor from "@/app/components/products/setColor";
 import SetQuantity from "@/app/components/products/setQuantity";
+import { CartProduct, Product, ProductImage } from "@/types";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 
 interface ProductDetailsProps {
-    product: any;
+    product: Product;
 }
-
-export type CartProductType = {
-    id: string;
-    name: string;
-    description: string;
-    category: string;
-    brand: string;
-    selectedImage: SelectedImageType;
-    quantity: number;
-    price: number;
-};
-
-export type SelectedImageType = {
-    color: string;
-    colorCode: string;
-    images: string;
-};
 
 const HorizontalLine = () => {
     return <hr className="w-[30%] my-2"></hr>;
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
-    const [cartProduct, setCartProduct] = useState<CartProductType>({
+    const [cartProduct, setCartProduct] = useState<CartProduct>({
         id: product.id,
         name: product.name,
         description: product.description,
@@ -42,13 +26,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         price: product.price,
     });
 
-    console.log(cartProduct);
+    const productRating = product.reviews.length
+        ? product.reviews.reduce((acc, item) => {
+              return acc + item.rating;
+          }, 0) / product.reviews.length
+        : 0;
 
-    const productRating = product.reviews.reduce((acc: number, item: any) => {
-        return acc + item.rating;
-    }, 0) / product.reviews.length;
-
-    const handleColorSelect = useCallback((value: SelectedImageType) => {
+    const handleColorSelect = useCallback((value: ProductImage) => {
         setCartProduct((prev) => ({
             ...prev,
             selectedImage: value, // Update selectedImage with the new value
@@ -76,7 +60,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <div className="flex flex-col gap-1 text-slate-500">
                 <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
                 <div className="flex items-center gap-2">
-                    <Rating name="read-only" value={productRating} readOnly />
+                    <Rating name="read-only" value={productRating} precision={0.5} readOnly />
                     <div>{product.reviews.length} Reviews</div>
                 </div>
                 <HorizontalLine />
