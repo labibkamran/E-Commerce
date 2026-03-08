@@ -1,6 +1,3 @@
-import { Children } from "react";
-
-
 interface FooterListProps {
     children: React.ReactNode;
 }
