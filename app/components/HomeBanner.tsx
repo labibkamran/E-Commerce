@@ -1,4 +1,3 @@
-import exp from "constants";
 import Image from "next/image";
 
 const HomeBanner = () => {
@@ -17,10 +16,12 @@ const HomeBanner = () => {
                     </p>
                 </div>
                 <div className="w-1/3 relative aspect-video">
-                        <Image src="/banner-image.png" 
-                        layout="fill" 
-                        objectFit="cover"
-                        alt="Banner Image"/>
+                        <Image
+                            src="/banner-image.png"
+                            fill
+                            className="object-cover"
+                            alt="Banner Image"
+                        />
                 </div>
             </div>
         </div>
