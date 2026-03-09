@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Container from "../container";
 import { Redressed as RedressedFont } from 'next/font/google';
+import CartCounter from "../cart/CartCounter";
 
 const redressed = RedressedFont({ subsets: ['latin'], weight: ['400'] }); 
 const NavBar = () => {
@@ -25,11 +28,13 @@ const NavBar = () => {
                     ">
                         <Link href="/" className={`${redressed.className} font-bold text-2xl`}>E-shop</Link>
                         <div className="hidden md:block">
-                            Search
+                            <span className="text-sm text-slate-600">Electronics and accessories</span>
                         </div>
                         <div className="flex items-center gap-8 md:gap-12">
-                            <div>CartCounter</div>
-                            <div>UserMenu</div>
+                            <CartCounter />
+                            <Link href="/cart" className="text-sm font-semibold text-slate-700">
+                                Checkout
+                            </Link>
                         </div>
                     </div>
                 </Container>
