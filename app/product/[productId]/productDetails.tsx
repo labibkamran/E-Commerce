@@ -1,10 +1,12 @@
 "use client";
 
+import { useCart } from "@/app/components/cart/CartContext";
 import SetColor from "@/app/components/products/setColor";
 import SetQuantity from "@/app/components/products/setQuantity";
 import { CartProduct, Product, ProductImage } from "@/types";
 import { Rating } from "@mui/material";
-import { useCallback, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 
 interface ProductDetailsProps {
     product: Product;
@@ -15,6 +17,7 @@ const HorizontalLine = () => {
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+    const { addToCart, isInCart } = useCart();
     const [cartProduct, setCartProduct] = useState<CartProduct>({
         id: product.id,
         name: product.name,
@@ -25,6 +28,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         quantity: 1,
         price: product.price,
     });
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
 
     const productRating = product.reviews.length
         ? product.reviews.reduce((acc, item) => {
@@ -32,31 +36,66 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           }, 0) / product.reviews.length
         : 0;
 
-    const handleColorSelect = useCallback((value: ProductImage) => {
+    const handleColorSelect = (value: ProductImage) => {
         setCartProduct((prev) => ({
             ...prev,
-            selectedImage: value, // Update selectedImage with the new value
+            selectedImage: value,
         }));
-    }, []);
+    };
 
-    const handleQtyIncrease = useCallback(() => {
+    const handleQtyIncrease = () => {
         setCartProduct((prev) => ({
             ...prev,
-            quantity: prev.quantity + 1, // Increment quantity
+            quantity: prev.quantity + 1,
         }));
-    }, []);
+    };
 
-    const handleQtyDecrease = useCallback(() => {
+    const handleQtyDecrease = () => {
         setCartProduct((prev) => ({
             ...prev,
-            quantity: Math.max(1, prev.quantity - 1), // Decrement quantity but ensure it doesn't go below 1
+            quantity: Math.max(1, prev.quantity - 1),
         }));
-    }, []);
+    };
+
+    const handleAddToCart = () => {
+        addToCart(cartProduct);
+        setIsAddedToCart(true);
+    };
 
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>images</div>
+            <div className="flex flex-col gap-4">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-slate-100">
+                    <Image
+                        src={cartProduct.selectedImage.image}
+                        alt={product.name}
+                        fill
+                        className="object-contain p-6"
+                    />
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                    {product.images.map((imageItem) => (
+                        <button
+                            key={imageItem.color}
+                            type="button"
+                            onClick={() => handleColorSelect(imageItem)}
+                            className={`relative aspect-square overflow-hidden rounded-xl border bg-white ${
+                                cartProduct.selectedImage.color === imageItem.color
+                                    ? "border-slate-900"
+                                    : "border-slate-200"
+                            }`}
+                        >
+                            <Image
+                                src={imageItem.image}
+                                alt={`${product.name} ${imageItem.color}`}
+                                fill
+                                className="object-contain p-3"
+                            />
+                        </button>
+                    ))}
+                </div>
+            </div>
             <div className="flex flex-col gap-1 text-slate-500">
                 <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
                 <div className="flex items-center gap-2">
@@ -93,7 +132,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                     handleQtyDecrease={handleQtyDecrease}
                 />
                 <HorizontalLine />
-                <div>add to cart</div>
+                <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={!product.inStock}
+                    className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                >
+                    {isAddedToCart || isInCart(product.id) ? "Update Cart" : "Add to Cart"}
+                </button>
             </div>
         </div>
     );
